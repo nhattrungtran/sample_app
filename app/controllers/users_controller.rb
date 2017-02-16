@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 	before_action :correct_user,   only: [:edit, :update]
 	before_action :admin_user,     only: :destroy
 	def index
-		  @users = User.paginate(page: params[:page])
+		  # @users = User.paginate(page: params[:page]) 
+		  @users = User.where(activated: true).paginate(page: params[:page])
 	end
 
 	def new
@@ -15,14 +16,17 @@ class UsersController < ApplicationController
 	end
 
 	def create
-    # @user = User.new(params[:user])    # Not the final implementation!
+    
 	    @user = User.new(user_params)
 	    if @user.save
+	    	@user.send_activation_email #call send_activation_email from user.rb
+	    	
+		    flash[:info] = "Created account success !
+		   						 Please check your email #{@user.email} to activate your account."
+		    redirect_to root_url
+
 	    	@user1 = User.last.name
-	    	log_in @user
-	    	flash[:success] = "Welcome to the Sample App! Hello #{@user1}"
-	    	redirect_to @user
-	      # Handle a successful save.
+	    	
 	    else
 	    	render 'new'
 	    end
