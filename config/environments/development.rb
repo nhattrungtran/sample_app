@@ -26,36 +26,14 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-#-------add-------
-config.action_mailer.default_url_options = { :host => 'guarded-scrubland-87697.herokuapp.com' }  
-  config.action_mailer.delivery_method = :smtp  
-  config.action_mailer.perform_deliveries = true  
-  config.action_mailer.raise_delivery_errors = true  
-  config.action_mailer.default :charset => "utf-8"  
-  config.action_mailer.smtp_settings = {  
-  address: "smtp.gmail.com",
-  port: 587,
-  domain: "guarded-scrubland-87697.herokuapp.com",
-  authentication: "plain",
-  enable_starttls_auto: true,
-  user_name: "trungtranqn91@gmail.com",
-  password: "205557618"
-}
-#---------end add---  
-
-
-
-
-
   # Don't care if the mailer can't send.
-  # #----------------
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.delivery_method = :test
-  # host = 'localhost:3000' # Don't use this literally; use your local dev host instead
-  # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  host = 'localhost:3000' # Don't use this literally; use your local dev host instead
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
-  # config.action_mailer.perform_caching = false
-  # #---------------
+  config.action_mailer.perform_caching = false
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
